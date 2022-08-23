@@ -18,6 +18,12 @@
       name: vim,httpd,createrepo
       state: present
 
+  - name: Start and enable apache httpd
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+
   - name: Create directories
     file:
       path: '{{ item }}'
