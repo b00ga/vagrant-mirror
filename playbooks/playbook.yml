@@ -1,0 +1,64 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+  - name: OS & Distribution related info
+    debug:
+      var: '{{ item }}'
+    with_items:
+    - ansible_os_family
+    - ansible_distribution
+    - ansible_distribution_version
+    - ansible_distribution_major_version
+    - ansible_distribution_minor_version
+
+  - name: Install tools
+    package:
+      name: vim,httpd,createrepo
+      state: present
+
+  - name: Create directories
+    file:
+      path: '{{ item }}'
+      state: directory
+    with_items:
+      - /var/www/html/repofiles
+
+  - name: Install repo files
+    copy:
+      src: '{{ item }}'
+      dest: '/var/www/html/repofiles/{{ item }}'
+    with_items:
+      - nodesource-reposync.repo
+      - nodesource-aptmirror.list
+
+  - name: Install apt-mirror
+    get_url:
+      url: https://raw.githubusercontent.com/apt-mirror/apt-mirror/master/apt-mirror
+      dest: /usr/local/bin/apt-mirror
+      mode: '0755'
+
+  - name: Create rpm mirror
+    command: >
+        reposync --disablerepo=* --enablerepo=nodesource*
+          -c /var/www/html/repofiles/nodesource-reposync.repo
+          -p /var/www/html/reposync
+
+  - name: Find all rpm mirror dirs
+    find:
+      paths: /var/www/html/reposync
+      patterns: 'nodesource*'
+      file_type: directory
+    register: reposync_paths
+
+  - name: Generate rpm repo metdata
+    command: createrepo .
+    args:
+      chdir: '{{ item.path }}'
+    loop: '{{ reposync_paths.files }}'
+    loop_control:
+      label: '{{ item.path }}'
+
+  - name: Create apt-mirror
+    command: /usr/local/bin/apt-mirror /var/www/html/repofiles/nodesource-aptmirror.list

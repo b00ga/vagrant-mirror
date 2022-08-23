@@ -1,0 +1,34 @@
+[nodesource-16-el9-x86_64]
+name=Node.js Packages for Enterprise Linux 9 - x86_64
+baseurl=https://rpm.nodesource.com/pub_16.x/el/9/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/NODESOURCE-GPG-SIGNING-KEY-EL
+
+[nodesource-16-el8-x86_64]
+name=Node.js Packages for Enterprise Linux 8 - x86_64
+baseurl=https://rpm.nodesource.com/pub_16.x/el/8/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/NODESOURCE-GPG-SIGNING-KEY-EL
+
+[nodesource-16-el7-x86_64]
+name=Node.js Packages for Enterprise Linux 7 - x86_64
+baseurl=https://rpm.nodesource.com/pub_16.x/el/7/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/NODESOURCE-GPG-SIGNING-KEY-EL
+
+[nodesource-16-f35-x86_64]
+name=Node.js Packages for Fedora 35 - x86_64
+baseurl=https://rpm.nodesource.com/pub_16.x/fc/35/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/NODESOURCE-GPG-SIGNING-KEY-EL
+
+[nodesource-16-f36-x86_64]
+name=Node.js Packages for Fedora 36 - x86_64
+baseurl=https://rpm.nodesource.com/pub_16.x/fc/36/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/NODESOURCE-GPG-SIGNING-KEY-EL

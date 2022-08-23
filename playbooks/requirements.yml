@@ -1,0 +1,6 @@
+---
+roles:
+  - name: geerlingguy.postgresql
+
+collections:
+  - name: nginxinc.nginx_core
