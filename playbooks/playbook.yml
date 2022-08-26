@@ -2,6 +2,12 @@
 - hosts: all
   become: yes
 
+  handlers:
+  - name: restart httpd
+    service:
+      name: httpd
+      state: restarted
+
   tasks:
   - name: OS & Distribution related info
     debug:
@@ -17,6 +23,12 @@
     package:
       name: vim,httpd,createrepo
       state: present
+
+  - name: Set namewidth for autoindexed web directories
+    copy:
+      src: namewidth.conf
+      dest: /etc/httpd/conf.d/namewidth.conf
+    notify: restart httpd
 
   - name: Start and enable apache httpd
     service:
